@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "appName": {
+      "value": "healthcare-assistant"
+    },
+    "environment": {
+      "value": "dev"
+    },
+    "openAiEndpoint": {
+      "value": "https://your-openai-resource.openai.azure.com/"
+    },
+    "openAiApiKey": {
+      "value": "your-openai-api-key"
+    },
+    "openAiDeploymentName": {
+      "value": "gpt-4"
+    },
+    "openAiEmbeddingDeploymentName": {
+      "value": "text-embedding-ada-002"
+    }
+  }
+}
+
