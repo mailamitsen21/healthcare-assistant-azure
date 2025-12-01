@@ -19,13 +19,14 @@ logger = logging.getLogger(__name__)
 
 # Set environment variables (update these with your actual values)
 # You can also set these in your shell before running
-os.environ.setdefault('COSMOS_DB_ENDPOINT', 'https://cosmos-health.documents.azure.com:443/')
-os.environ.setdefault('COSMOS_DB_KEY', 'YOUR_COSMOS_DB_KEY==')
-os.environ.setdefault('AZURE_COSMOSDB_DATABASE_NAME', 'HealthcareDB')
-os.environ.setdefault('AZURE_OPENAI_ENDPOINT', 'https://ai-healthcare.openai.azure.com/')
-os.environ.setdefault('AZURE_OPENAI_API_KEY', 'YOUR_OPENAI_API_KEY')
-os.environ.setdefault('AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME', 'text-embedding-ada-002')
-os.environ.setdefault('AZURE_OPENAI_API_VERSION', '2024-02-15-preview')
+# IMPORTANT: Replace placeholder values with your actual Azure credentials
+os.environ.setdefault('COSMOS_DB_ENDPOINT', os.getenv('COSMOS_DB_ENDPOINT', 'YOUR_COSMOS_DB_ENDPOINT'))
+os.environ.setdefault('COSMOS_DB_KEY', os.getenv('COSMOS_DB_KEY', 'YOUR_COSMOS_DB_KEY'))
+os.environ.setdefault('AZURE_COSMOSDB_DATABASE_NAME', os.getenv('AZURE_COSMOSDB_DATABASE_NAME', 'HealthcareDB'))
+os.environ.setdefault('AZURE_OPENAI_ENDPOINT', os.getenv('AZURE_OPENAI_ENDPOINT', 'YOUR_OPENAI_ENDPOINT'))
+os.environ.setdefault('AZURE_OPENAI_API_KEY', os.getenv('AZURE_OPENAI_API_KEY', 'YOUR_OPENAI_API_KEY'))
+os.environ.setdefault('AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME', os.getenv('AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME', 'text-embedding-ada-002'))
+os.environ.setdefault('AZURE_OPENAI_API_VERSION', os.getenv('AZURE_OPENAI_API_VERSION', '2024-02-15-preview'))
 
 def load_rag_entries(file_path: str = None) -> list:
     """Load RAG entries from JSON file"""

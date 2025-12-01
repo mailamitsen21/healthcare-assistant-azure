@@ -18,9 +18,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Set environment variables
-os.environ.setdefault('COSMOS_DB_ENDPOINT', 'https://cosmos-health.documents.azure.com:443/')
-os.environ.setdefault('COSMOS_DB_KEY', 'YOUR_COSMOS_DB_KEY==')
-os.environ.setdefault('AZURE_COSMOSDB_DATABASE_NAME', 'HealthcareDB')
+# IMPORTANT: Replace placeholder values with your actual Azure credentials
+# Set these as environment variables before running, or update the defaults below
+os.environ.setdefault('COSMOS_DB_ENDPOINT', os.getenv('COSMOS_DB_ENDPOINT', 'YOUR_COSMOS_DB_ENDPOINT'))
+os.environ.setdefault('COSMOS_DB_KEY', os.getenv('COSMOS_DB_KEY', 'YOUR_COSMOS_DB_KEY'))
+os.environ.setdefault('AZURE_COSMOSDB_DATABASE_NAME', os.getenv('AZURE_COSMOSDB_DATABASE_NAME', 'HealthcareDB'))
 
 def load_rag_entries(file_path: str = None) -> list:
     """Load RAG entries from JSON file"""

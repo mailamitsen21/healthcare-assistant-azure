@@ -14,10 +14,12 @@ TOOLS_APP="HealthBotTools"
 WEB_APP="healthbot-ui-app"
 
 # Azure OpenAI Configuration
-OPENAI_ENDPOINT="https://ai-healthcare.openai.azure.com/"
-OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
-DEPLOYMENT_NAME="gpt-5-mini"
-API_VERSION="2024-02-15-preview"
+# IMPORTANT: Replace these with your actual values
+# Get these from Azure Portal > Your OpenAI Resource > Keys and Endpoint
+OPENAI_ENDPOINT="${AZURE_OPENAI_ENDPOINT:-YOUR_OPENAI_ENDPOINT}"
+OPENAI_API_KEY="${AZURE_OPENAI_API_KEY:-YOUR_OPENAI_API_KEY}"
+DEPLOYMENT_NAME="${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4o-mini}"
+API_VERSION="${AZURE_OPENAI_API_VERSION:-2024-02-15-preview}"
 
 echo "🚀 Starting Healthcare Assistant Deployment..."
 echo ""
