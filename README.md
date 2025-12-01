@@ -65,7 +65,3 @@ A robust multi-agent healthcare assistant system built on Azure, using Semantic 
 - Simple HTML/JavaScript chat interface
 - Communicates only with the orchestrator API
 
-## License
-
-MIT
-
