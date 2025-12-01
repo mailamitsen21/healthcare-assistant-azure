@@ -6,12 +6,10 @@ Uses Semantic Kernel to coordinate specialized agents.
 import azure.functions as func
 import logging
 import json
-from sk_core.planner import HealthcarePlanner
-from sk_core.tool_connector import ToolConnector
 
 app = func.FunctionApp()
 
-@app.route(route="orchestrate", methods=["POST"], auth_level=func.AuthLevel.FUNCTION)
+@app.route(route="orchestrate", methods=["POST"], auth_level=func.AuthLevel.ANONYMOUS)
 def orchestrator_function(req: func.HttpRequest) -> func.HttpResponse:
     """
     Main orchestrator endpoint that receives user queries
@@ -20,6 +18,10 @@ def orchestrator_function(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Orchestrator function processed a request.')
 
     try:
+        # Lazy imports to avoid blocking function registration
+        from sk_core.planner import HealthcarePlanner
+        from sk_core.tool_connector import ToolConnector
+        
         # Parse request body
         req_body = req.get_json()
         if not req_body or 'query' not in req_body:

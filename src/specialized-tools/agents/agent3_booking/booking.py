@@ -46,19 +46,30 @@ class AppointmentBooking:
         Returns:
             Dictionary with appointment information or booking result
         """
-        query_lower = query.lower()
-        
-        # Determine intent
-        if "book" in query_lower or "schedule" in query_lower:
-            return self._book_appointment(input_data)
-        elif "available" in query_lower or "availability" in query_lower:
-            return self._check_availability(input_data)
-        elif "cancel" in query_lower:
-            return self._cancel_appointment(input_data)
-        elif "list" in query_lower or "show" in query_lower or "my appointments" in query_lower:
-            return self._list_appointments(input_data)
-        else:
-            return {"error": "Could not determine appointment intent"}
+        try:
+            query_lower = query.lower()
+            
+            # Add query to input_data for use in methods
+            input_data["query"] = query
+            
+            # Determine intent
+            if "book" in query_lower or "schedule" in query_lower or "setup" in query_lower or "set up" in query_lower:
+                return self._book_appointment(input_data)
+            elif "available" in query_lower or "availability" in query_lower:
+                return self._check_availability(input_data)
+            elif "cancel" in query_lower:
+                return self._cancel_appointment(input_data)
+            elif "list" in query_lower or "show" in query_lower or "my appointments" in query_lower:
+                return self._list_appointments(input_data)
+            else:
+                # Default to checking availability if intent unclear
+                return self._check_availability(input_data)
+        except Exception as e:
+            logger.error(f"Error processing appointment query: {str(e)}", exc_info=True)
+            return {
+                "error": f"Error processing appointment request: {str(e)}",
+                "message": "I encountered an issue processing your appointment request. Please try again or provide more details."
+            }
     
     def _book_appointment(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         """Books a new appointment."""
@@ -68,9 +79,22 @@ class AppointmentBooking:
             time = input_data.get("time")
             doctor = input_data.get("doctor", "General Practitioner")
             reason = input_data.get("reason", "")
+            query = input_data.get("query", "")  # Original query text
             
+            # If date/time not provided, suggest available slots
             if not date or not time:
-                return {"error": "Date and time are required for booking"}
+                # Suggest next available date
+                from datetime import datetime, timedelta
+                next_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+                available_slots = self._get_available_slots(next_date, doctor)
+                
+                return {
+                    "error": "Date and time are required for booking",
+                    "message": "To book an appointment, please specify a date and time. Here are some available slots:",
+                    "suggested_date": next_date,
+                    "available_slots": available_slots[:10],  # Top 10 slots
+                    "instructions": "Please provide a date (YYYY-MM-DD) and time (HH:MM) to complete your booking."
+                }
             
             # Create appointment document
             appointment = {

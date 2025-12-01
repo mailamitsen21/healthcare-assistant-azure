@@ -51,3 +51,7 @@ logs/
 # Azure
 .azure/
 
+# Generated data files
+rag_entries.json
+*.zip
+
