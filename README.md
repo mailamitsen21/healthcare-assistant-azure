@@ -16,7 +16,7 @@ A robust multi-agent healthcare assistant system built on Azure, using Semantic 
 |-- /deployment                 # Azure Infrastructure as Code
 |-- /src
 |   |-- /ui-frontend            # Azure Web App (Chat Interface)
-|   |-- /orchestrator-api       # Agent 3: Semantic Kernel Orchestrator
+|   |-- /orchestrator-api       # Semantic Kernel Orchestrator
 |   |-- /specialized-tools      # Agents 1, 2, 3: Azure Functions
 |       |-- /agents/            # Logic for specialized tools
 |       |-- /shared-db/         # Cosmos DB interaction layer
@@ -51,7 +51,7 @@ A robust multi-agent healthcare assistant system built on Azure, using Semantic 
 
 ## Components
 
-### Orchestrator API (Agent 3)
+### Orchestrator API
 - Main entry point for all requests
 - Uses Semantic Kernel to plan and execute agent calls
 - Synthesizes responses from multiple agents
